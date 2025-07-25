@@ -27,9 +27,9 @@ public class Medecin extends Personnel {
     }
 
     // methode calculer salaire
-    double salaire = 0;
     @Override
     public double calculerSalaire(){
+        double salaire = 0;
         return salaire = getSalaire_de_base() + (1000 * patientAffecter());
     }
 
@@ -38,19 +38,5 @@ public class Medecin extends Personnel {
         return specialite;
     }
 
-    public String toFichierFormat(){
-        return super.toString()+" "+specialite;
-    }
-
-    public static Medecin fromFichierFormat(String ligne){
-        String[] champMedecin = ligne.split(" ");
-        String nom = champMedecin[0];
-        String prenom = champMedecin[1];
-        int age = Integer.parseInt(champMedecin[2]);
-        String matricule = champMedecin[3];
-        double salaire_de_base = Double.parseDouble(champMedecin[4]);
-        String specialite = champMedecin[5];
-        return new Medecin(nom, prenom, age, matricule, salaire_de_base, specialite);
-    }
 
 }

@@ -10,18 +10,33 @@ public class GestionnaireDeFichier {
 
     
     public <T> void sauvegarde( T element){
-        try(BufferedWriter buffer = new BufferedWriter(new FileWriter("Hopital.txt", true))){
+        try(BufferedWriter buffer = new BufferedWriter(new FileWriter("Hopital_File.txt", true))){
                 buffer.write(element.toString());
                 buffer.newLine();
         }catch(IOException e){
             e.printStackTrace();
         }
     }
+
     
+    
+    public void AfficherFichier(){
+        String ligne;
+        try(BufferedReader reader = new BufferedReader(new FileReader("Hopital_File.txt"))){
+            while ((ligne = reader.readLine()) != null) {
+                    System.out.println(ligne);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+            System.out.println("erreur lors de la lecture");
+        }
+    }
+
+
     public void rechercherFichier(String citere){
         String ligne;
         boolean trouve = false;
-        try(BufferedReader reader = new BufferedReader(new FileReader("Hopital.txt"))){
+        try(BufferedReader reader = new BufferedReader(new FileReader("Hopital_File.txt"))){
             while ((ligne = reader.readLine()) != null) {
                 if(ligne.contains(citere)){
                     System.out.println("trouver");
@@ -40,8 +55,8 @@ public class GestionnaireDeFichier {
     }
 
     public void supprimerFichier(String critere){
-        try (BufferedReader reader = new BufferedReader(new FileReader("Hopital.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("Hopital.txt.tmp"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Hopital_File.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("Hopital_File.txt.tmp"))) {
             String ligne = null;
             while((ligne = reader.readLine()) != null){
                 if(!(ligne.contains(critere))){
@@ -52,29 +67,31 @@ public class GestionnaireDeFichier {
         } catch (Exception e) {
             // TODO: handle exception
         }
-        File originalFile = new File("Hopital.txt");
-        File temporalFile = new File("Hopital.txt.tmp");
+        File originalFile = new File("Hopital_File.txt");
+        File temporalFile = new File("Hopital_File.txt.tmp");
         originalFile.delete();
         temporalFile.renameTo(originalFile);
     }
 
     public <T> void updateFichier(String critere, T newLine){
-        try (BufferedReader reader = new BufferedReader(new FileReader("Hopital.txt"));
-        BufferedWriter writer = new BufferedWriter(new FileWriter("Hopital.tyxt.tmp"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Hopital_File.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("Hopital_File.txt.tmp"))) {
             String ligne = null;
             while ((ligne = reader.readLine()) != null) {
                 if(ligne.contains(critere)){
-                    writer.write(ligne);
-                }else{
                     writer.write(newLine.toString());
+                    writer.newLine();
+                }else{
+                    writer.write(ligne);
+                    writer.newLine();
                 }
             }
             
         } catch (Exception e) {
             // TODO: handle exception
         }
-        File originalFile = new File("Hopital.txt");
-        File temporFile = new File("Hopital.txt.tmp");
+        File originalFile = new File("Hopital_File.txt");
+        File temporFile = new File("Hopital_File.txt.tmp");
         originalFile.delete();
         temporFile.renameTo(originalFile);
     }

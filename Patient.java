@@ -28,18 +28,5 @@ public class Patient extends Personne{
         return maladie;
     }
 
-    public String toFichierFormat(){
-        return super.toString() + " " + numeroDossier + " " + maladie;
-    }
-
-    public static Patient fromFichierForm(String ligne){
-        String[] patient = ligne.split((" "));
-        String nom = patient[0];
-        String prenom = patient[1];
-        int age = Integer.parseInt(patient[2]);
-        String numeroDossier = patient[3];
-        String maladie = patient[4];
-        return new Patient( nom,  prenom, age,  numeroDossier,  maladie);
-    }
 
 }
